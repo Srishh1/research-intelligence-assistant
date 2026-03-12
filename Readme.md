@@ -208,9 +208,3 @@ Papers appearing high in **both** lists get a boosted combined score. Papers fou
 ## 🛠️ Built With
 
 `Python` `FastAPI` `Gradio` `FAISS` `SentenceTransformers` `NetworkX` `spaCy` `Mistral 7B` `Ollama` `ArXiv API`
-
----
-
-## 👩‍💻 Author
-
-Built as a major project by a 4th-year B.Tech AI/ML student to solve a real research discovery problem.
