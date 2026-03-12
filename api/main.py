@@ -7,6 +7,8 @@ from ingestion.text_processor import papers_to_chunks
 from retrieval.vector_store import build_vector_store
 from retrieval.graph_store import build_knowledge_graph
 from orchestration.graph_flow import run_pipeline
+from retrieval.graph_visualizer import build_paper_graph
+from fastapi.responses import HTMLResponse
 
 app = FastAPI(
     title="Research Intelligence Assistant",
@@ -79,7 +81,8 @@ def query(request: QueryRequest):
             query=request.question,
             index=cached["index"],
             chunks=cached["chunks"],
-            graph=cached["graph"]
+            graph=cached["graph"],
+            top_k=3
         )
 
         time_taken = round(time.time() - start_time, 2)
@@ -105,3 +108,25 @@ def clear_cache():
 @app.get("/cache/topics")
 def list_cached_topics():
     return {"cached_topics": list(cache.keys())}
+
+@app.get("/graph/{topic}", response_class=HTMLResponse)
+def get_graph(topic: str):
+    topic = topic.replace("%20", " ")
+
+    if topic not in cache:
+        raise HTTPException(status_code=404, detail="Topic not cached yet.")
+
+    cached = cache[topic]
+    html = build_paper_graph(
+        chunks=cached["chunks"],
+        graph=cached["graph"]
+    )
+
+    # Save to a temp file and serve it
+    import tempfile, os
+    os.makedirs("graph_cache", exist_ok=True)
+    filepath = f"graph_cache/{topic.replace(' ', '_')}.html"
+    with open(filepath, "w") as f:
+        f.write(html)
+
+    return HTMLResponse(content=html)
