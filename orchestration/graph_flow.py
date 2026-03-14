@@ -30,11 +30,15 @@ Confidence: found in {', '.join(result['found_in'])}
 
 def ask_llm(query: str, context: str) -> str:
     """
-    Sends the query + context to Mistral via Ollama
-    and returns the answer.
+    Sends query + context to Mistral via Groq API.
+    Groq is free, fast (2-3 seconds), and works in the cloud.
     """
+    import os
+    api_key = os.environ.get("GROQ_API_KEY")
+    
+    if not api_key:
+        raise Exception("GROQ_API_KEY environment variable not set")
 
-    # This is the prompt that instructs the LLM how to behave
     system_prompt = """You are a research assistant helping AI/ML students find relevant papers and identify research opportunities.
 
 You will be given a student's question and a set of relevant research papers fetched from ArXiv.
@@ -47,7 +51,6 @@ Your job is to:
 
 Be specific, cite paper titles, and be helpful to someone planning to publish their first research paper."""
 
-    # Format the full prompt
     user_message = f"""Student Question: {query}
 
 Relevant Papers:
@@ -55,24 +58,27 @@ Relevant Papers:
 
 Please provide a comprehensive answer that helps the student understand the landscape and find a research direction."""
 
-    # Call Ollama's API — it runs locally on port 11434
     response = requests.post(
-        "http://localhost:11434/api/chat",
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        },
         json={
-            "model": "mistral",
+            "model": "llama-3.3-70b-versatile",
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message}
             ],
-            "stream": False  # Wait for full response
+            "max_tokens": 1000,
+            "temperature": 0.7
         }
     )
 
     if response.status_code != 200:
-        raise Exception(f"Ollama API failed: {response.status_code} - {response.text}")
+        raise Exception(f"Groq API failed: {response.status_code} - {response.text}")
 
-    data = response.json()
-    return data["message"]["content"]
+    return response.json()["choices"][0]["message"]["content"]
 
 
 def run_pipeline(
@@ -103,7 +109,7 @@ def run_pipeline(
     context = build_context(fused_results, chunks)
 
     # Step 4: Ask LLM
-    print("Asking Mistral...")
+    print("Asking groq...")
     answer = ask_llm(query, context)
 
     return {
