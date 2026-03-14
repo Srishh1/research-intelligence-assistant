@@ -45,6 +45,25 @@
              
 
              
+             /* position absolute is important and the container has to be relative or absolute as well. */
+          div.popup {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 display:none;
+                 background-color:#f5f4ed;
+                 -moz-border-radius: 3px;
+                 -webkit-border-radius: 3px;
+                 border-radius: 3px;
+                 border: 1px solid #808074;
+                 box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+          }
+
+          /* hide the original tooltip */
+          .vis-tooltip {
+            display:none;
+          }
+             
         </style>
     </head>
 
@@ -88,7 +107,7 @@
                   
 
                   // parsing and collecting nodes and edges from the python
-                  nodes = new vis.DataSet([{"color": "#f97316", "font": {"color": "white"}, "id": "How to Build an Adaptive AI Tutor for Any Course Using Knowledge Graph-Enhanced Retrieval-Augmented Generation (KG-RAG)", "label": "How to Build an Adaptive AI Tutor for Any Course U...", "shape": "dot", "size": 30, "title": "How to Build an Adaptive AI Tutor for Any Course U...\nChenxi Dong, Yimin Yuan\n2023\nhttp://arxiv.org/abs/2311.17696v7"}, {"color": "#f97316", "font": {"color": "white"}, "id": "Knowledge graph enhanced retrieval-augmented generation for failure mode and effects analysis", "label": "Knowledge graph enhanced retrieval-augmented gener...", "shape": "dot", "size": 30, "title": "Knowledge graph enhanced retrieval-augmented gener...\nLukas Bahr, Christoph Wehner\n2024\nhttp://arxiv.org/abs/2406.18114v3"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "KG2QA: Knowledge Graph-enhanced Retrieval-augmented Generation for Communication Standards Question Answering", "label": "KG2QA: Knowledge Graph-enhanced Retrieval-augmente...", "shape": "dot", "size": 20, "title": "KG2QA: Knowledge Graph-enhanced Retrieval-augmente...\nZhongze Luo, Weixuan Wan\n2025\nhttp://arxiv.org/abs/2506.07037v2"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "M$^3$KG-RAG: Multi-hop Multimodal Knowledge Graph-enhanced Retrieval-Augmented Generation", "label": "M$^3$KG-RAG: Multi-hop Multimodal Knowledge Graph-...", "shape": "dot", "size": 20, "title": "M$^3$KG-RAG: Multi-hop Multimodal Knowledge Graph-...\nHyeongcheol Park, Jiyoung Seo\n2025\nhttp://arxiv.org/abs/2512.20136v2"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "DO-RAG: A Domain-Specific QA Framework Using Knowledge Graph-Enhanced Retrieval-Augmented Generation", "label": "DO-RAG: A Domain-Specific QA Framework Using Knowl...", "shape": "dot", "size": 20, "title": "DO-RAG: A Domain-Specific QA Framework Using Knowl...\nDavid Osei Opoku, Ming Sheng\n2025\nhttp://arxiv.org/abs/2505.17058v1"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "PersonaAgent with GraphRAG: Community-Aware Knowledge Graphs for Personalized LLM", "label": "PersonaAgent with GraphRAG: Community-Aware Knowle...", "shape": "dot", "size": 20, "title": "PersonaAgent with GraphRAG: Community-Aware Knowle...\nSiqi Liang, Yudi Zhang\n2025\nhttp://arxiv.org/abs/2511.17467v2"}, {"color": "#f97316", "font": {"color": "white"}, "id": "GE-Chat: A Graph Enhanced RAG Framework for Evidential Response Generation of LLMs", "label": "GE-Chat: A Graph Enhanced RAG Framework for Eviden...", "shape": "dot", "size": 30, "title": "GE-Chat: A Graph Enhanced RAG Framework for Eviden...\nLongchao Da, Parth Mitesh Shah\n2025\nhttp://arxiv.org/abs/2505.10143v1"}]);
+                  nodes = new vis.DataSet([{"color": "#f97316", "font": {"color": "white"}, "id": "How to Build an Adaptive AI Tutor for Any Course Using Knowledge Graph-Enhanced Retrieval-Augmented Generation (KG-RAG)", "label": "How to Build an Adaptive AI Tutor for Any Course U...", "shape": "dot", "size": 30, "title": "\u003cb\u003eHow to Build an Adaptive AI Tutor for Any Course U...\u003c/b\u003e\u003cbr\u003eAuthors: Chenxi Dong, Yimin Yuan\u003cbr\u003eYear: 2023\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2311.17696v7\u0027\u003eOpen paper\u003c/a\u003e"}, {"color": "#f97316", "font": {"color": "white"}, "id": "Knowledge graph enhanced retrieval-augmented generation for failure mode and effects analysis", "label": "Knowledge graph enhanced retrieval-augmented gener...", "shape": "dot", "size": 30, "title": "\u003cb\u003eKnowledge graph enhanced retrieval-augmented gener...\u003c/b\u003e\u003cbr\u003eAuthors: Lukas Bahr, Christoph Wehner\u003cbr\u003eYear: 2024\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2406.18114v3\u0027\u003eOpen paper\u003c/a\u003e"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "KG2QA: Knowledge Graph-enhanced Retrieval-augmented Generation for Communication Standards Question Answering", "label": "KG2QA: Knowledge Graph-enhanced Retrieval-augmente...", "shape": "dot", "size": 20, "title": "\u003cb\u003eKG2QA: Knowledge Graph-enhanced Retrieval-augmente...\u003c/b\u003e\u003cbr\u003eAuthors: Zhongze Luo, Weixuan Wan\u003cbr\u003eYear: 2025\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2506.07037v2\u0027\u003eOpen paper\u003c/a\u003e"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "M$^3$KG-RAG: Multi-hop Multimodal Knowledge Graph-enhanced Retrieval-Augmented Generation", "label": "M$^3$KG-RAG: Multi-hop Multimodal Knowledge Graph-...", "shape": "dot", "size": 20, "title": "\u003cb\u003eM$^3$KG-RAG: Multi-hop Multimodal Knowledge Graph-...\u003c/b\u003e\u003cbr\u003eAuthors: Hyeongcheol Park, Jiyoung Seo\u003cbr\u003eYear: 2025\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2512.20136v2\u0027\u003eOpen paper\u003c/a\u003e"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "DO-RAG: A Domain-Specific QA Framework Using Knowledge Graph-Enhanced Retrieval-Augmented Generation", "label": "DO-RAG: A Domain-Specific QA Framework Using Knowl...", "shape": "dot", "size": 20, "title": "\u003cb\u003eDO-RAG: A Domain-Specific QA Framework Using Knowl...\u003c/b\u003e\u003cbr\u003eAuthors: David Osei Opoku, Ming Sheng\u003cbr\u003eYear: 2025\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2505.17058v1\u0027\u003eOpen paper\u003c/a\u003e"}, {"color": "#3b82f6", "font": {"color": "white"}, "id": "PersonaAgent with GraphRAG: Community-Aware Knowledge Graphs for Personalized LLM", "label": "PersonaAgent with GraphRAG: Community-Aware Knowle...", "shape": "dot", "size": 20, "title": "\u003cb\u003ePersonaAgent with GraphRAG: Community-Aware Knowle...\u003c/b\u003e\u003cbr\u003eAuthors: Siqi Liang, Yudi Zhang\u003cbr\u003eYear: 2025\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2511.17467v2\u0027\u003eOpen paper\u003c/a\u003e"}, {"color": "#f97316", "font": {"color": "white"}, "id": "GE-Chat: A Graph Enhanced RAG Framework for Evidential Response Generation of LLMs", "label": "GE-Chat: A Graph Enhanced RAG Framework for Eviden...", "shape": "dot", "size": 30, "title": "\u003cb\u003eGE-Chat: A Graph Enhanced RAG Framework for Eviden...\u003c/b\u003e\u003cbr\u003eAuthors: Longchao Da, Parth Mitesh Shah\u003cbr\u003eYear: 2025\u003cbr\u003e\u003ca href=\u0027http://arxiv.org/abs/2505.10143v1\u0027\u003eOpen paper\u003c/a\u003e"}]);
                   edges = new vis.DataSet([{"color": "#4b5563", "from": "How to Build an Adaptive AI Tutor for Any Course Using Knowledge Graph-Enhanced Retrieval-Augmented Generation (KG-RAG)", "title": "5 shared concepts", "to": "Knowledge graph enhanced retrieval-augmented generation for failure mode and effects analysis", "value": 5}, {"color": "#4b5563", "from": "How to Build an Adaptive AI Tutor for Any Course Using Knowledge Graph-Enhanced Retrieval-Augmented Generation (KG-RAG)", "title": "3 shared concepts", "to": "GE-Chat: A Graph Enhanced RAG Framework for Evidential Response Generation of LLMs", "value": 3}, {"color": "#4b5563", "from": "Knowledge graph enhanced retrieval-augmented generation for failure mode and effects analysis", "title": "4 shared concepts", "to": "GE-Chat: A Graph Enhanced RAG Framework for Evidential Response Generation of LLMs", "value": 4}]);
 
                   nodeColors = {};
@@ -100,7 +119,7 @@
                   // adding nodes and edges to the graph
                   data = {nodes: nodes, edges: edges};
 
-                  var options = {"physics": {"enabled": true, "forceAtlas2Based": {"gravitationalConstant": -50, "centralGravity": 0.01, "springLength": 150, "springConstant": 0.08}, "solver": "forceAtlas2Based", "stabilization": {"iterations": 100}}, "nodes": {"borderWidth": 2, "shadow": false}, "edges": {"smooth": {"type": "continuous"}, "shadow": false}, "interaction": {"hover": true, "tooltipDelay": 100}};
+                  var options = {"physics": {"enabled": true, "forceAtlas2Based": {"gravitationalConstant": -80, "centralGravity": 0.005, "springLength": 200, "springConstant": 0.05}, "solver": "forceAtlas2Based", "stabilization": {"iterations": 150}}, "nodes": {"borderWidth": 2, "font": {"size": 0, "color": "rgba(0,0,0,0)"}, "shadow": false}, "edges": {"smooth": {"type": "continuous"}, "shadow": false}, "interaction": {"hover": true, "tooltipDelay": 50, "hideEdgesOnDrag": true}};
 
                   
 
@@ -113,6 +132,68 @@
 
                   
 
+                  
+                  // make a custom popup
+                      var popup = document.createElement("div");
+                      popup.className = 'popup';
+                      popupTimeout = null;
+                      popup.addEventListener('mouseover', function () {
+                          console.log(popup)
+                          if (popupTimeout !== null) {
+                              clearTimeout(popupTimeout);
+                              popupTimeout = null;
+                          }
+                      });
+                      popup.addEventListener('mouseout', function () {
+                          if (popupTimeout === null) {
+                              hidePopup();
+                          }
+                      });
+                      container.appendChild(popup);
+
+
+                      // use the popup event to show
+                      network.on("showPopup", function (params) {
+                          showPopup(params);
+                      });
+
+                      // use the hide event to hide it
+                      network.on("hidePopup", function (params) {
+                          hidePopup();
+                      });
+
+                      // hiding the popup through css
+                      function hidePopup() {
+                          popupTimeout = setTimeout(function () { popup.style.display = 'none'; }, 500);
+                      }
+
+                      // showing the popup
+                      function showPopup(nodeId) {
+                          // get the data from the vis.DataSet
+                          var nodeData = nodes.get([nodeId]);
+                          popup.innerHTML = nodeData[0].title;
+
+                          // get the position of the node
+                          var posCanvas = network.getPositions([nodeId])[nodeId];
+
+                          // get the bounding box of the node
+                          var boundingBox = network.getBoundingBox(nodeId);
+
+                          //position tooltip:
+                          posCanvas.x = posCanvas.x + 0.5 * (boundingBox.right - boundingBox.left);
+
+                          // convert coordinates to the DOM space
+                          var posDOM = network.canvasToDOM(posCanvas);
+
+                          // Give it an offset
+                          posDOM.x += 10;
+                          posDOM.y -= 20;
+
+                          // show and place the tooltip.
+                          popup.style.display = 'block';
+                          popup.style.top = posDOM.y + 'px';
+                          popup.style.left = posDOM.x + 'px';
+                      }
                   
 
 
