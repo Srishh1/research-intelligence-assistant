@@ -1,5 +1,6 @@
 import gradio as gr
 import requests
+import os
 
 API_URL = "http://127.0.0.1:8000"
 
@@ -105,4 +106,4 @@ with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) 
     )
 
 if __name__ == "__main__":
-    demo.launch(share=False)
+    demo.launch(server_name="0.0.0.0", server_port=7860, share=False)

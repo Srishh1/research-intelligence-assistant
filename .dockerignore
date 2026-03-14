@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+*.pyc
+.git/
+graph_cache/
+test_pipeline.py
+*.pt
+*.bin
+*.model
+*.ckpt
+node_modules
+venv
+.env
+data
+graph_cache
