@@ -41,17 +41,26 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
 
         topic_url = topic.strip().replace(" ", "%20")
 
-        HF_SPACE_URL = "https://srish241-research-intelligence-assistant.hf.space"
+        try:
+            graph_response = requests.get(
+                f"{API_URL}/graph/{topic_url}",
+                timeout=60
+            )
 
-        graph_url = f"{HF_SPACE_URL}/graph/{topic_url}"
+            if graph_response.status_code == 200:
+                safe_html = graph_response.text.replace('"', '&quot;')
+                graph_md = f"""
+                <iframe srcdoc="{safe_html}"
+                width="100%"
+                height="600px"
+                style="border:none;">
+                </iframe>
+                """
+            else:
+                graph_md = f"<p>Graph error: {graph_response.text}</p>"
 
-        graph_md = f"""
-        ###  Open Citation Graph
-
-         <a href="{graph_url}" target="_blank" style="color:#8b5cf6; font-weight:bold;">
-        Click here to open interactive graph
-        </a>
-        """
+        except Exception as e:
+            graph_md = f"<p>Graph failed: {str(e)}</p>"
 
         return answer, sources_text, meta, graph_md
 
@@ -106,7 +115,7 @@ with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) 
 
                 with gr.Tab(" Citation Graph"):
                     gr.Markdown("**Paper relationship graph** — nodes are papers, edges show shared concepts. Hover for details, drag to explore.")
-                    graph_output = gr.Markdown()
+                    graph_output = gr.HTML()
 
 
     submit_btn.click(
