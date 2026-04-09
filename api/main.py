@@ -113,19 +113,34 @@ def list_cached_topics():
 def get_graph(topic: str):
     topic = topic.replace("%20", " ")
 
-    if topic not in cache:
-        raise HTTPException(status_code=404, detail="Topic not cached yet.")
+    # Try loading from file first
+    import os
 
-    cached = cache[topic]
+    filepath = f"graph_cache/{topic.replace(' ', '_')}.html"
+
+    if os.path.exists(filepath):
+        with open(filepath, "r") as f:
+            html = f.read()
+        return HTMLResponse(content=html)
+
+    # If not cached → rebuild graph
+    print(f"Graph cache miss — rebuilding for topic: {topic}")
+
+    papers = fetch_papers(topic, max_results=15)
+
+    if not papers:
+        raise HTTPException(status_code=404, detail="No papers found")
+
+    chunks = papers_to_chunks(papers)
+    graph = build_knowledge_graph(chunks)
+
     html = build_paper_graph(
-        chunks=cached["chunks"],
-        graph=cached["graph"]
+        chunks=chunks,
+        graph=graph
     )
 
-    # Save to a temp file and serve it
-    import tempfile, os
     os.makedirs("graph_cache", exist_ok=True)
-    filepath = f"graph_cache/{topic.replace(' ', '_')}.html"
+
     with open(filepath, "w") as f:
         f.write(html)
 
