@@ -41,29 +41,20 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
 
         topic_url = topic.strip().replace(" ", "%20")
 
-        HF_SPACE_URL = "https://huggingface.co/spaces/Srish241/research-intelligence-assistant"
+        HF_SPACE_URL = os.getenv(
+            "HF_SPACE_URL",
+            "https://srish241-research-intelligence-assistant.hf.space"
+        )
 
-        try:
-            graph_response = requests.get(
-                f"{API_URL}/graph/{topic_url}",
-                timeout=60
-            )
+        graph_url = f"{HF_SPACE_URL}/graph/{topic_url}"
 
-            if graph_response.status_code == 200:
-                graph_html = f"""
-                <iframe srcdoc='{graph_response.text}' 
-                width="100%" 
-                height="600px" 
-                style="border:none;">
-                </iframe>
-                """
-            else:
-                graph_html = f"<p>Graph error: {graph_response.text}</p>"
+        graph_md = f"""
+        ### 🔗 [Open Interactive Citation Graph]({graph_url})
 
-        except Exception as e:
-            graph_html = f"<p>Graph failed to load: {str(e)}</p>"
+        ⚡ Opens in full screen (recommended)
+        """
 
-        return answer, sources_text, meta, graph_html
+        return answer, sources_text, meta, graph_md
 
     except requests.exceptions.ConnectionError:
         return " Cannot connect to backend. Make sure FastAPI is running.", "", "", "<p>No connection</p>"
@@ -116,7 +107,7 @@ with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) 
 
                 with gr.Tab(" Citation Graph"):
                     gr.Markdown("**Paper relationship graph** — nodes are papers, edges show shared concepts. Hover for details, drag to explore.")
-                    graph_output = gr.HTML()
+                    graph_output = gr.Markdown()
 
 
     submit_btn.click(
