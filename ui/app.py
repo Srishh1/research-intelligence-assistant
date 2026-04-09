@@ -43,7 +43,19 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
 
         HF_SPACE_URL = "https://huggingface.co/spaces/Srish241/research-intelligence-assistant"
 
-        graph_html = requests.get(f"{API_URL}/graph/{topic_url}").text
+        try:
+            graph_response = requests.get(
+                f"{API_URL}/graph/{topic_url}",
+                timeout=60
+            )
+
+            if graph_response.status_code == 200:
+                graph_html = graph_response.text
+            else:
+                graph_html = f"<p>Graph error: {graph_response.text}</p>"
+
+        except Exception as e:
+            graph_html = f"<p>Graph failed to load: {str(e)}</p>"
 
         return answer, sources_text, meta, graph_html
 
