@@ -41,7 +41,7 @@ Semantic similarity search          Graph traversal on concepts
          Context Builder (Top-K papers)
                    │
                    ▼
-         Mistral 7B via Ollama
+         Llama 3.3 70B via Groq API
                    │
                    ▼
          Research Answer + Gap Analysis
@@ -59,7 +59,7 @@ Semantic similarity search          Graph traversal on concepts
 | Entity extraction | spaCy `en_core_web_sm` | Extract concepts and named entities |
 | Knowledge graph | NetworkX | Model relationships between concepts |
 | Fusion | Reciprocal Rank Fusion (RRF) | Merge and re-rank both retriever outputs |
-| LLM | Mistral 7B via Ollama | Generate research-grade answers |
+| LLM | Llama 3.3 70B via Groq API | Generate research-grade answers |
 | Backend | FastAPI | REST API with topic-level caching |
 | Frontend | Gradio | Clean web UI with example queries |
 
@@ -104,10 +104,10 @@ hybrid-rag/
 
 ### Prerequisites
 - Python 3.10+
-- [Ollama](https://ollama.com) installed with Mistral pulled
+- Groq API key (free at console.groq.com)
 
 ```bash
-ollama pull mistral
+export GROQ_API_KEY="your_key_here"
 ```
 
 ### Installation
