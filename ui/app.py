@@ -43,11 +43,9 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
 
         HF_SPACE_URL = "https://huggingface.co/spaces/Srish241/research-intelligence-assistant"
 
-        graph_url = f"{HF_SPACE_URL}/graph/{topic_url}"
+        graph_html = requests.get(f"{API_URL}/graph/{topic_url}").text
 
-        graph_md = f"### [ Click here to open Citation Graph]({graph_url})\n\nOpens in a new tab — drag nodes, hover for paper details."
-
-        return answer, sources_text, meta, graph_md
+        return answer, sources_text, meta, graph_html
 
     except requests.exceptions.ConnectionError:
         return " Cannot connect to backend. Make sure FastAPI is running.", "", "", "<p>No connection</p>"
@@ -100,13 +98,13 @@ with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) 
 
                 with gr.Tab(" Citation Graph"):
                     gr.Markdown("**Paper relationship graph** — nodes are papers, edges show shared concepts. Hover for details, drag to explore.")
-                    graph_link = gr.Markdown()
+                    graph_output = gr.HTML()
 
 
     submit_btn.click(
         fn=query_research_assistant,
         inputs=[topic_input, question_input, max_papers_slider],
-        outputs=[answer_output, sources_output, meta_output, graph_link]
+        outputs=[answer_output, sources_output, meta_output, graph_output]
     )
 
 if __name__ == "__main__":
