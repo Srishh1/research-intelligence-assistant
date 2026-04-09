@@ -2,7 +2,7 @@ import gradio as gr
 import requests
 import os
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 
 
 def query_research_assistant(topic: str, question: str, max_papers: int):
@@ -34,21 +34,25 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
             sources_text += f"**{source['rank']}. {source['title']}**\n"
             sources_text += f"🔗 {source['link']}\n"
             if source.get("authors"):
-                sources_text += f"👤 {', '.join(source['authors'][:2])}\n"
-            sources_text += f"📊 Found in: {', '.join(source['found_in'])}\n\n"
+                sources_text += f" {', '.join(source['authors'][:2])}\n"
+            sources_text += f" Found in: {', '.join(source['found_in'])}\n\n"
 
         meta = f"Topic: `{data['topic']}` | Papers: {data['papers_analyzed']}"
 
         topic_url = topic.strip().replace(" ", "%20")
-        graph_url = f"http://127.0.0.1:8000/graph/{topic_url}"
-        graph_md = f"### [🕸️ Click here to open Citation Graph]({graph_url})\n\nOpens in a new tab — drag nodes, hover for paper details."
+
+        HF_SPACE_URL = "https://huggingface.co/spaces/Srish241/research-intelligence-assistant"
+
+        graph_url = f"{HF_SPACE_URL}/graph/{topic_url}"
+
+        graph_md = f"### [ Click here to open Citation Graph]({graph_url})\n\nOpens in a new tab — drag nodes, hover for paper details."
 
         return answer, sources_text, meta, graph_md
 
     except requests.exceptions.ConnectionError:
-        return "❌ Cannot connect to backend. Make sure FastAPI is running.", "", "", "<p>No connection</p>"
+        return " Cannot connect to backend. Make sure FastAPI is running.", "", "", "<p>No connection</p>"
     except Exception as e:
-        return f"❌ Error: {str(e)}", "", "", "<p>Error</p>"
+        return f" Error: {str(e)}", "", "", "<p>Error</p>"
 
 
 with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) as demo:
@@ -73,7 +77,7 @@ with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) 
                 minimum=5, maximum=30, value=15, step=5,
                 label="Number of papers to analyze"
             )
-            submit_btn = gr.Button("🔍 Search & Analyze", variant="primary")
+            submit_btn = gr.Button(" Search & Analyze", variant="primary")
 
             gr.Examples(
                 examples=[
@@ -87,14 +91,14 @@ with gr.Blocks(title="Research Intelligence Assistant", theme=gr.themes.Soft()) 
 
         with gr.Column(scale=2):
             with gr.Tabs():
-                with gr.Tab("💬 Answer"):
+                with gr.Tab(" Answer"):
                     meta_output = gr.Markdown()
                     answer_output = gr.Markdown()
 
-                with gr.Tab("📚 Sources"):
+                with gr.Tab(" Sources"):
                     sources_output = gr.Markdown()
 
-                with gr.Tab("🕸️ Citation Graph"):
+                with gr.Tab(" Citation Graph"):
                     gr.Markdown("**Paper relationship graph** — nodes are papers, edges show shared concepts. Hover for details, drag to explore.")
                     graph_link = gr.Markdown()
 
