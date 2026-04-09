@@ -41,17 +41,16 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
 
         topic_url = topic.strip().replace(" ", "%20")
 
-        HF_SPACE_URL = os.getenv(
-            "HF_SPACE_URL",
-            "https://srish241-research-intelligence-assistant.hf.space"
-        )
+        HF_SPACE_URL = "https://srish241-research-intelligence-assistant.hf.space"
 
         graph_url = f"{HF_SPACE_URL}/graph/{topic_url}"
 
         graph_md = f"""
-        ### 🔗 [Open Interactive Citation Graph]({graph_url})
+        ###  Open Citation Graph
 
-        ⚡ Opens in full screen (recommended)
+         <a href="{graph_url}" target="_blank" style="color:#8b5cf6; font-weight:bold;">
+        Click here to open interactive graph
+        </a>
         """
 
         return answer, sources_text, meta, graph_md
