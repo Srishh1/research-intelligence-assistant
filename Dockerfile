@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy requirements first (Docker caches this layer)
 # If requirements don't change, Docker skips reinstalling
-COPY ./requirements.txt /app/requirements.txt
+COPY ./req.txt /app/requirements.txt
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
