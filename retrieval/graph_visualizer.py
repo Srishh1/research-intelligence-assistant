@@ -72,9 +72,10 @@ def build_paper_graph(chunks: list[dict], graph: nx.Graph) -> str:
     net = Network(
         height="600px",
         width="100%",
-        bgcolor="#0d1117",  # dark background
+        bgcolor="#0d1117",
         font_color="white",
-        notebook=False
+        notebook=False,
+        cdn_resources="in_line"
     )
 
     # Physics settings for nice layout
