@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy requirements first (Docker caches this layer)
 # If requirements don't change, Docker skips reinstalling
-COPY requirements.txt .
+COPY ./requirements.txt /app/requirements.txt
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m spacy download en_core_web_sm
 
 # Copy the rest of your code
-COPY . .
+COPY . /app
 
 # Create directory for graph cache
 RUN mkdir -p graph_cache
