@@ -50,7 +50,13 @@ def query_research_assistant(topic: str, question: str, max_papers: int):
             )
 
             if graph_response.status_code == 200:
-                graph_html = graph_response.text
+                graph_html = f"""
+                <iframe srcdoc='{graph_response.text}' 
+                width="100%" 
+                height="600px" 
+                style="border:none;">
+                </iframe>
+                """
             else:
                 graph_html = f"<p>Graph error: {graph_response.text}</p>"
 
