@@ -1,5 +1,3 @@
-# 🔬 Research Intelligence Assistant
-
 ---
 title: Research Intelligence Assistant
 emoji: 🔬
@@ -9,11 +7,13 @@ sdk: docker
 pinned: false
 ---
 
+# 🔬 Research Intelligence Assistant
+Ask research questions. Get answers grounded in real papers.
 ### HybridRAG — Vector Search + Knowledge Graph + Mistral AI
 
 A production-deployed research assistant that helps AI/ML students discover relevant papers, identify research gaps, and find publication opportunities — powered by a hybrid retrieval architecture combining semantic vector search with knowledge graph traversal.
 
-**Live Demo**: [HuggingFace Spaces](#) *(link after deployment)*
+**Live Demo**: https://huggingface.co/spaces/Srish241/research-intelligence-assistant
 
 ---
 
