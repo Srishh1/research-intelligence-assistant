@@ -113,7 +113,7 @@ export GROQ_API_KEY="your_key_here"
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/hybrid-rag
+git clone https://github.com/Srishh1/research-intelligence-assistant
 cd hybrid-rag
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
