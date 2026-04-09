@@ -1,4 +1,14 @@
 # 🔬 Research Intelligence Assistant
+
+---
+title: Research Intelligence Assistant
+emoji: 🔬
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
 ### HybridRAG — Vector Search + Knowledge Graph + Mistral AI
 
 A production-deployed research assistant that helps AI/ML students discover relevant papers, identify research gaps, and find publication opportunities — powered by a hybrid retrieval architecture combining semantic vector search with knowledge graph traversal.
