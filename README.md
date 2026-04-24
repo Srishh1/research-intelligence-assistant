@@ -1,12 +1,3 @@
----
-title: Research Intelligence Assistant
-emoji: 🔬
-colorFrom: blue
-colorTo: purple
-sdk: docker
-pinned: false
----
-
 # 🔬 Research Intelligence Assistant
 Ask research questions. Get answers grounded in real papers.
 ### HybridRAG — Vector Search + Knowledge Graph + Mistral AI
